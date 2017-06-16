@@ -1,0 +1,17 @@
+//
+//  PrefixHeader.pch
+//  WeatherDemo
+//
+//  Created by 周必稳 on 2017/6/16.
+//  Copyright © 2017年 zbw. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import "Common.h"
+
+#import "UIView+Frame.h"
+#import "UIImage+Orginal.h"
+
+#endif /* PrefixHeader_pch */
