@@ -17,12 +17,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupSubViews];
-    
 }
 
 - (void)setupSubViews {
     self.view.layer.contents = (__bridge id _Nullable)([UIImage imageNamed:@"bgother"].CGImage);
-    
     self.view.width = self.view.width * 3 / 4;
 }
 
@@ -32,7 +30,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"" forIndexPath:indexPath];
     return cell;
 }

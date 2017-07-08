@@ -22,6 +22,9 @@
 		63B630A01EF385AC009DB8C1 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B6309F1EF385AC009DB8C1 /* UIView+Frame.m */; };
 		63B630A31EF3A967009DB8C1 /* UIImage+Orginal.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B630A21EF3A967009DB8C1 /* UIImage+Orginal.m */; };
 		63B630A81EF3AAF3009DB8C1 /* BaseNavigationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B630A71EF3AAF3009DB8C1 /* BaseNavigationVC.m */; };
+		63CF1A7F1EF7B05F00D8D8DF /* LeftModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CF1A7E1EF7B05F00D8D8DF /* LeftModel.m */; };
+		63CF1A821EF7B09500D8D8DF /* RightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CF1A811EF7B09500D8D8DF /* RightModel.m */; };
+		63CF1A851EF7B1DF00D8D8DF /* BaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CF1A841EF7B1DF00D8D8DF /* BaseVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +77,12 @@
 		63B630A21EF3A967009DB8C1 /* UIImage+Orginal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Orginal.m"; sourceTree = "<group>"; };
 		63B630A61EF3AAF3009DB8C1 /* BaseNavigationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationVC.h; sourceTree = "<group>"; };
 		63B630A71EF3AAF3009DB8C1 /* BaseNavigationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationVC.m; sourceTree = "<group>"; };
+		63CF1A7D1EF7B05F00D8D8DF /* LeftModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftModel.h; sourceTree = "<group>"; };
+		63CF1A7E1EF7B05F00D8D8DF /* LeftModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftModel.m; sourceTree = "<group>"; };
+		63CF1A801EF7B09500D8D8DF /* RightModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightModel.h; sourceTree = "<group>"; };
+		63CF1A811EF7B09500D8D8DF /* RightModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightModel.m; sourceTree = "<group>"; };
+		63CF1A831EF7B1DF00D8D8DF /* BaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseVC.h; sourceTree = "<group>"; };
+		63CF1A841EF7B1DF00D8D8DF /* BaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,6 +248,10 @@
 		6323E18D1EF370D60062011F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				63CF1A7D1EF7B05F00D8D8DF /* LeftModel.h */,
+				63CF1A7E1EF7B05F00D8D8DF /* LeftModel.m */,
+				63CF1A801EF7B09500D8D8DF /* RightModel.h */,
+				63CF1A811EF7B09500D8D8DF /* RightModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -279,6 +292,8 @@
 		63B630A51EF3AADC009DB8C1 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				63CF1A831EF7B1DF00D8D8DF /* BaseVC.h */,
+				63CF1A841EF7B1DF00D8D8DF /* BaseVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -422,10 +437,13 @@
 				63B630A01EF385AC009DB8C1 /* UIView+Frame.m in Sources */,
 				63B6309D1EF3833D009DB8C1 /* RootVC.m in Sources */,
 				6323E1501EF36E440062011F /* AppDelegate.m in Sources */,
+				63CF1A851EF7B1DF00D8D8DF /* BaseVC.m in Sources */,
 				6323E1921EF37B8D0062011F /* MainVC.m in Sources */,
 				6323E1861EF36EDB0062011F /* main.m in Sources */,
 				63B630A31EF3A967009DB8C1 /* UIImage+Orginal.m in Sources */,
+				63CF1A821EF7B09500D8D8DF /* RightModel.m in Sources */,
 				6323E1951EF37F3E0062011F /* LeftVC.m in Sources */,
+				63CF1A7F1EF7B05F00D8D8DF /* LeftModel.m in Sources */,
 				6323E1871EF36EDB0062011F /* ViewController.m in Sources */,
 				6323E1981EF37F5C0062011F /* RightVC.m in Sources */,
 				63B630A81EF3AAF3009DB8C1 /* BaseNavigationVC.m in Sources */,

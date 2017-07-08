@@ -12,6 +12,8 @@
 @interface MainVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, assign) BOOL rainHeaderView;
+@property (nonatomic, strong) UIView *weatherAnimationView;
 
 @end
 
@@ -19,16 +21,39 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setupData];
     [self setupSubViews];
+}
+
+- (void)setupData {
+    _rainHeaderView = YES;
 }
 
 - (void)setupSubViews {
     [self setupBackgroundView];
+    [self setupWeatherAnimationView];
     [self setupNavifationItems];
 }
 
 - (void)setupBackgroundView {
     self.view.layer.contents =  (__bridge id _Nullable)([UIImage imageNamed:@"bg03"].CGImage);
+}
+
+- (void)setupWeatherAnimationView {
+    if (!self.weatherAnimationView) {
+        self.weatherAnimationView = [[UIView alloc] initWithFrame:self.view.bounds];
+        [self.view addSubview:self.weatherAnimationView];
+        [self.view sendSubviewToBack:self.weatherAnimationView];
+    }
+
+    for (UIView *view in self.weatherAnimationView.subviews) {
+        [view removeFromSuperview];
+    }
+    if (_rainHeaderView) {
+        [self.weatherAnimationView addSubview:[self rainAnimationView]];
+    }else {
+        [self.weatherAnimationView addSubview:[self cloudAnimationView]];
+    }
 }
 
 - (void)setupNavifationItems {
@@ -56,17 +81,27 @@
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    cell.textLabel.text = @"1234134";
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    UIViewController *vc = [UIViewController new];
+    vc.view.backgroundColor = [UIColor whiteColor];
+    [self showViewController:vc sender:nil];
+}
+
 #pragma mark - UITableViewDelegate
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth-50, 180)];
+
+#pragma mark - WeatherAnimation
+- (UIView *)cloudAnimationView {
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 80, kScreenWidth-50, 180)];
     UIImageView *imageV = [[UIImageView alloc]initWithFrame:view.bounds];
     
     imageV.image = [UIImage imageNamed:@"雾云"];
@@ -84,13 +119,26 @@
     animation.toValue = @(-kScreenWidth * 3 / 2);
     animation.duration = 30;
     animation.repeatCount = MAXFLOAT;
+    animation.removedOnCompletion = NO;
     [imageV.layer addAnimation:animation forKey:@"animation"];
-    
     return view;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 200;
+- (UIView *)rainAnimationView {
+    UIView *view =  [[UIView alloc]initWithFrame:CGRectMake(0, 80, kScreenWidth, 380)];
+    UIImageView *imagev = [[UIImageView alloc]initWithFrame:view.bounds];
+    NSMutableArray *imageArr = [NSMutableArray new];
+    for (int i = 1; i < 5; i++) {
+        id obj = [UIImage imageNamed:[NSString stringWithFormat:@"雨滴%d",i]];
+        [imageArr addObject:obj];
+    }
+    
+    imagev.animationImages = imageArr;
+    imagev.animationDuration = 0.5;
+    [imagev startAnimating];
+    [view addSubview:imagev];
+    return view;
 }
+
 
 @end

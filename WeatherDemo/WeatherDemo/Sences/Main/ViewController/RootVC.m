@@ -11,10 +11,10 @@
 #import "RightVC.h"
 #import "BaseNavigationVC.h"
 
-#define kVCShowDuration 0.5
+#define kVCShowDuration 0.35
 
 @interface RootVC ()
-@property (nonatomic, weak) UIViewController *leftVC;
+@property (nonatomic, weak , readonly) UIViewController *leftVC;
 @property (nonatomic, weak) UIViewController *rightVC;
 @property (nonatomic, weak) UIViewController *centerVC;
 
@@ -22,6 +22,7 @@
 @property (nonatomic, assign) BOOL rightVCIsVisual;
 
 @property (nonatomic, assign) CGPoint lastPoint;
+@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 
 @end
 
@@ -33,7 +34,7 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     RootVC *vc = [storyboard instantiateInitialViewController];
     
-    vc.leftVC = leftvc;
+//    vc.leftVC = leftvc;
     vc.rightVC = rightvc;
     vc.centerVC = centervc;
     
@@ -48,16 +49,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self setupChildrenVC];
     [self addGesture];
 }
 
+
 - (void)setupChildrenVC {
-    self.leftVC = (LeftVC *)[self addChildVCWithStoryboardId:@"LeftVC"];
+    _leftVC = (LeftVC *)[self addChildVCWithStoryboardId:@"LeftVC"];
     self.rightVC = (RightVC *)[self addChildVCWithStoryboardId:@"RightVC"];
     self.centerVC = (BaseNavigationVC *)[self addChildVCWithStoryboardId:@"BaseNavigationVC"];
-    
 }
 
 - (UIViewController *)addChildVCWithStoryboardId:(NSString *)storyboardid {
@@ -71,8 +71,9 @@
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panGestureRecognizerAction:)];
     [self.view addGestureRecognizer:pan];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGestureRecognizerAction:)];
-    [self.view addGestureRecognizer:tap];
+    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGestureRecognizerAction:)];
+    [self.centerVC.view addGestureRecognizer:self.tapGestureRecognizer];
+    self.tapGestureRecognizer.enabled = NO;
 }
 
 - (void)panGestureRecognizerAction:(UIPanGestureRecognizer *)panGesture {
@@ -82,8 +83,9 @@
         CGFloat offx = self.leftVC.view.width + point.x;
 
         if (offx <= self.leftVC.view.width) {
-            self.centerVC.view.x = offx;
+            self.centerVC.view.x = offx <= 0 ? 0 : offx;
         }
+        
         if (panGesture.state == UIGestureRecognizerStateEnded) {
             if (point.x > -50) {
                 [UIView animateWithDuration:kVCShowDuration animations:^{
@@ -94,6 +96,7 @@
                     self.centerVC.view.x = 0;
                 }];
                 self.leftVCIsVisual = NO;
+                self.tapGestureRecognizer.enabled = NO;
             }
         }
     }
@@ -101,7 +104,7 @@
     if (self.rightVCIsVisual) {
         CGFloat offx = -self.rightVC.view.width + point.x;
         if (offx >= -self.rightVC.view.width) {
-            self.centerVC.view.x = offx;
+            self.centerVC.view.x = offx >= 0 ? 0 : offx;
         }
 
         if (panGesture.state == UIGestureRecognizerStateEnded) {
@@ -110,6 +113,7 @@
                     self.centerVC.view.x = 0;
                 }];
                 self.rightVCIsVisual = NO;
+                self.tapGestureRecognizer.enabled = NO;
             }else {
                 [UIView animateWithDuration:kVCShowDuration animations:^{
                     self.centerVC.view.x = -self.rightVC.view.width;
@@ -138,6 +142,7 @@
         }];
     }
     self.leftVCIsVisual = !self.leftVCIsVisual;
+    self.tapGestureRecognizer.enabled = self.leftVCIsVisual;
 }
 
 - (void)showRightVC {
@@ -152,6 +157,7 @@
         }];
     }
     self.rightVCIsVisual = !self.rightVCIsVisual;
+    self.tapGestureRecognizer.enabled = self.rightVCIsVisual;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {

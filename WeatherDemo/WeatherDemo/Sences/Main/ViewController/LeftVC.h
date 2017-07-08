@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LeftVC : UIViewController
+@protocol LeftVCDelegate <NSObject>
+
+@optional
+- (void)didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+
+@end
+
+@interface LeftVC : BaseVC
 
 @end
